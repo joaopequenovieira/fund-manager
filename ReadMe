@@ -1,0 +1,6 @@
+A Simple Fund Manager
+
+Aims of this project are to:
+    Retrieve fund prices from a target location
+    Store fund names, prices, and price changes, most likely in Sqlite 3 or similar
+    Track own investment values, and value changes
