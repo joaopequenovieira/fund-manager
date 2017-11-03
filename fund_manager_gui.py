@@ -8,11 +8,13 @@ import db_manage
 def add_new_fund():
     window = tk.Toplevel()
     window.wm_title('Add new fund...')
+    window.geometry('650x50')
     link_entry = tk.Entry(window)
     link_entry.pack(fill='x', expand=1)
     #lambda to prevent function being called on assignment
     def add_butt_func():
         db_manage.db_manager.add_fund(db, (link_entry.get()))
+        app.populate_table()
         window.destroy()
     add_button = tk.Button(window, text='Add', command=lambda: (add_butt_func()))
     add_button.pack(side='right')
@@ -63,17 +65,27 @@ class fund_manager(tk.Frame):
         fund_tree.heading('change', text='Change')
         fund_tree.column('change', anchor='center')
 
+        
+
+    def populate_table(self):
+        data = db_manage.db_manager.retrieve_fund_data(db)
+        for fund in data:
+            self.fund_tree.insert('', 'end', iid=None, values=(fund[1],fund[2], fund[3], fund[4]))
+
+
 
 
 if __name__ == "__main__":
     #initialize database
     db = db_manage.db_manager('fund_manager.db')
     db.load_database()
+    db.update_funds()
     
     root = tk.Tk()
     root.attributes('-zoomed', True)
     root.title('Fund Manager')
     app = fund_manager(root)
+    app.populate_table()
 
 
     root.mainloop()

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 class main_funcs:
 
-	def add_new_fund(link):
+    def add_new_fund(link):
         if link == "":
             return
         page = requests.get(link)
@@ -24,11 +24,11 @@ class main_funcs:
         fund_nav = ""
         for c in fund_nav_temp:
             if (ord(c) == 46 or (ord(c) >= 48 and ord(c) <= 57)):
-            fund_nav += c
+                fund_nav += c
 		#get daily change
         fund_daily_change = overview_table[6].get_text()
 
-        values = [fund_isin, fund_title, fund_nav, fund_daily_change]
+        values = [link, fund_isin, fund_title, fund_nav, fund_daily_change]
         return(values)
 
 
