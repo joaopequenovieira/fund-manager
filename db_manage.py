@@ -45,21 +45,19 @@ class db_manager:
 
     def update_funds(self):
         target_funds = self.db_cursor.execute('SELECT fund_link FROM funds;')
+        target_funds = target_funds.fetchall()
         for row in target_funds:
+            print(row)
             temp = fund_manager.main_funcs.add_new_fund(row[0])
             self.db_cursor.execute('UPDATE funds SET nav=?, change=? WHERE isin=?', (temp[3], temp[4], temp[1]))
             self.connection.commit()
             
 
     def retrieve_fund_data(self):
-        self.update_funds()
-        results = []
-        for row in (self.db_cursor.execute(
-            '''SELECT * FROM funds;'''
-        )):
-            results.append(row)
+        results = self.db_cursor.execute('SELECT * FROM funds;')
+        results = results.fetchall()
         return(results)
-
+    
 
 if __name__ == '__main__':
     db = db_manager('fund_manager.db')

@@ -81,7 +81,7 @@ if __name__ == "__main__":
     db.load_database()
     db.update_funds()
     
-    root = tk.Tk()
+    root = tk.Tk(className="Fund Manager")
     root.attributes('-zoomed', True)
     root.title('Fund Manager')
     app = fund_manager(root)
